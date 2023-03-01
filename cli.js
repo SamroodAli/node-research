@@ -10,6 +10,12 @@ const args = require("minimist")(process.argv.slice(2), {
 const path = require("path");
 const fs = require("fs");
 
+// **********
+
+const BASE_PATH = path.resolve(process.env.BASE_PATH || __dirname);
+
+//  ******************
+
 main();
 
 async function main() {
@@ -19,19 +25,22 @@ async function main() {
     const getStdIn = await import("get-stdin");
     getStdIn.default().then(processFile).catch(error);
   } else if (args.file) {
-    fs.readFile(path.resolve(args.file), function onContents(err, contents) {
-      if (err) {
-        error(err.toString());
-      } else {
-        processFile(contents);
+    fs.readFile(
+      path.join(BASE_PATH, args.file),
+      function onContents(err, contents) {
+        if (err) {
+          error(err.toString());
+        } else {
+          processFile(contents);
+        }
       }
-    });
+    );
   } else {
     error("Incorrect usage", true);
   }
 }
 
-//  ******************
+//  **** Helper functions
 
 function error(msg, includeHelp = false) {
   console.error(msg);
