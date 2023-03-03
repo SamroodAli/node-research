@@ -1,7 +1,6 @@
 # NodeJS research
 
-This is me digging into the Nodejs documentation
-
+This is me learning and digging more into node
 ## Documentation
 
 [Node JS docs](https://nodejs.org/en/docs/)
