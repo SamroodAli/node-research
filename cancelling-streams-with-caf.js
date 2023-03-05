@@ -51,6 +51,14 @@ const processFile = CAF(function* processFile(signal, inStream) {
 
   outStream.pipe(targetStream);
 
+  // cancelling streams
+  signal.pr.catch(() => {
+    outStream.unpipe(targetStream);
+    // this destroys both outStream and the streams before this.
+    outStream.destroy();
+    console.log("Destroyed stream");
+  });
+
   yield completeStream(outStream);
 });
 
@@ -60,12 +68,13 @@ async function main() {
   if (args.help) {
     printHelp();
   } else if (args.stdin || args._.includes("-")) {
-    const tooLong = CAF.timeout(1, "Took too long");
+    const tooLong = CAF.timeout(100, "Took too long");
 
     processFile(tooLong, process.stdin);
   } else if (args.file) {
-    const tooLong = CAF.timeout(1, "Too too long");
+    const tooLong = CAF.timeout(100, "Too too long");
 
+    console.log(tooLong);
     const stream = fs.createReadStream(path.join(BASE_PATH, args.file));
 
     processFile(tooLong, stream);
