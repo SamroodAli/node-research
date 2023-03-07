@@ -11,6 +11,7 @@ const writableStream = createWriteStream(
 
 readStream.on("data", (chunk) => {
   // writing to a writable stream.
+  // this doesn't handle back pressure. Find out how in dedicated handling back pressure in streams folder
   writableStream.write(chunk);
 });
 
