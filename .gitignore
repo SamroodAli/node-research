@@ -1,2 +1,3 @@
 node_modules
-ignored-demo-files
+ignored-demo-files/**
+!ignored-demo-files/.gitkeep
