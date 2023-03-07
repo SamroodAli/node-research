@@ -1,6 +1,8 @@
 const { createReadStream, createWriteStream, write } = require("fs");
 const path = require("path");
 
+// USE stream pipes instead. this is more how it works under the head
+
 const readStream = createReadStream(
   path.join(__dirname, "../demo-files/powder-day.mp4")
 );

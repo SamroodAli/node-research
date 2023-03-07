@@ -1,3 +1,5 @@
+// USE stream pipes instead. this is more how it works under the head
+
 // back pressure is when the writable stream can't handle the readable stream's chunks
 // if we increase the size of the stream, we can handle more chunks.
 // The size of the stream is called 'watermark'. having a high water mark is one way to handle backpressure
