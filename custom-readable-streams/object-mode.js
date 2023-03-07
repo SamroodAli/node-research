@@ -14,7 +14,7 @@ class ArrayStreamer extends Readable {
   }
 
   _read() {
-    if (this.index <= this.array.length) {
+    if (this.index < this.array.length) {
       const chunk = this.array[this.index];
 
       // each chunk is an object
@@ -23,7 +23,7 @@ class ArrayStreamer extends Readable {
     } else {
       // ************* IMPORTANT *******************
       // note that final ending chunk is still null
-      this.this.push(null);
+      this.push(null);
     }
   }
 }
@@ -34,4 +34,6 @@ const streamInterface = new ArrayStreamer(array);
 
 streamInterface.on("data", console.log);
 
-streamInterface.on("end", () => console.log("streaming ended"));
+streamInterface.on("end", () => console.log("array read streaming ended"));
+
+module.exports = ArrayStreamer;
