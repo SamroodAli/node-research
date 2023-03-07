@@ -6,6 +6,7 @@ const readStream = fs.createReadStream(
 );
 
 /***  PAUSING STREAM */
+// stream switches to non-flowing mode
 readStream.pause();
 
 process.stdin.on("data", (chunk) => {
@@ -16,6 +17,7 @@ process.stdin.on("data", (chunk) => {
     readStream.read();
   } else if (parsed === "finish") {
     /****************  RESUMING STREAM */
+    // stream switches to flowing mode
     readStream.resume();
   } else {
     console.log("use read or finish instead", parsed);
