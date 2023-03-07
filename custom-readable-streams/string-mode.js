@@ -31,7 +31,7 @@ const array = ["one", "two", "three", "four", "five", "six"];
 
 const streamInterface = new ArrayStreamer(array);
 
-streamInterface.on("data", console.log);
+// streamInterface.on("data", console.log);
 
 streamInterface.on("end", () => console.log("array read streaming ended"));
 
