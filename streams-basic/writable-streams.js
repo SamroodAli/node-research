@@ -1,7 +1,9 @@
 const { createReadStream, createWriteStream, write } = require("fs");
 const path = require("path");
 
-const readStream = createReadStream(path.join(__dirname, "./powder-day.mp4"));
+const readStream = createReadStream(
+  path.join(__dirname, "../demo-files/powder-day.mp4")
+);
 
 const writableStream = createWriteStream(
   path.join(__dirname, "./copy-power-day.mp4")

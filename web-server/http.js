@@ -10,7 +10,7 @@ var staticAlias = require("node-static-alias");
 // ************************************
 
 const DB_PATH = path.join(__dirname, "my.db");
-const WEB_PATH = path.join(__dirname, "public");
+const WEB_PATH = path.join(__dirname, "../demo-files");
 const HTTP_PORT = 3000;
 
 var fileServer = new staticAlias.Server(WEB_PATH, {
