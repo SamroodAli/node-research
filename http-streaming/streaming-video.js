@@ -2,6 +2,7 @@ const { createServer } = require("http");
 const { stat } = require("fs/promises");
 const { createReadStream, createWriteStream } = require("fs");
 const path = require("path");
+const multiparty = require("multiparty");
 
 const server = createServer(handleRequest);
 
@@ -76,8 +77,33 @@ async function handleMultiPartFrom(req, res) {
 }
 
 async function handleFileUpload(req, res) {
+  const formHandler = new multiparty.Form();
+
+  // not what we want
+  // formHandler.on("file", function (fileName, fileData) {
+  // });
+
+  // for one input tag
+  formHandler.on("part", function (readable) {
+    readable
+      .pipe(createWriteStream(uploadPath(readable.filename)))
+      .on("close", function onWriteFinish() {
+        res.writeHead(200, {
+          "Content-Type": "text/html",
+        });
+
+        res.end(`
+          <p>File uploaded</p>
+        `);
+      });
+
+    res.end;
+  });
+
+  formHandler.parse(req);
+
   // forking streams
-  req.pipe(res);
-  req.pipe(process.stdout);
-  req.pipe(createWriteStream(uploadPath("someFile")));
+  // req.pipe(res);
+  // req.pipe(process.stdout);
+  // req.pipe(createWriteStream(uploadPath("someFile")));
 }
